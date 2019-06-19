@@ -1,0 +1,24 @@
+{
+    "name": "@epsidev/dionisio-cli",
+    "version": "0.0.1234",
+    "description": "",
+    "main": "bin/main.js",
+    "scripts": {
+        "build": "tsc",
+        "test": "echo \"nyi\"",
+        "prepublish": "npm test"
+    },
+    "author": "Brandon G. Neri <contacto@epsidev.com.mx>",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^12.0.8",
+        "typescript": "^3.5.2"
+    },
+    "bin": {
+        "dionisio": "./bin/src/main.js"
+    },
+    "preferGlobal": true,
+    "dependencies": {
+        "commander": "^2.20.0"
+    }
+}
