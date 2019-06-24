@@ -17,7 +17,7 @@ commander_1.default
     .description('Generate Dionisio schematic')
     .action(generate_js_1.generate);
 commander_1.default
-    .command('new')
+    .command('new <name>')
     .alias('n')
     .description('Create new Dionisio project')
     .action(new_js_1.newProject);
