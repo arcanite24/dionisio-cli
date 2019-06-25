@@ -1,13 +1,13 @@
 {
   "name": "@epsidev/dionisio-cli",
-  "version": "0.0.1234",
-  "description": "",
-  "main": "bin/main.js",
+  "version": "0.0.0",
+  "description": "Dionisio CLI",
+  "main": "bin/src/main.js",
   "scripts": {
     "build": "tsc",
     "test": "echo \"nyi\"",
-    "prepublish": "npm test",
-    "generate:collection": "npx hygen dionisio debug"
+    "lint": "tslint {src,test}/**/*.ts",
+    "prepublish": "npm test"
   },
   "author": "Brandon G. Neri <contacto@epsidev.com.mx>",
   "license": "MIT",
