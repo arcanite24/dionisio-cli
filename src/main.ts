@@ -7,18 +7,18 @@ import { newProject } from './actions/new.js';
 
 program
     .version(pkg.version, '-v, --version')
-    .usage('[options] <command>')
+    .usage('[options] <command>');
 
 program
     .command('generate <schematic>')
     .alias('g')
     .description('Generate Dionisio schematic')
-    .action(generate)
+    .action(generate);
 
 program
     .command('new <name>')
     .alias('n')
     .description('Create new Dionisio project')
-    .action(newProject)
+    .action(newProject);
 
 program.parse(process.argv);
