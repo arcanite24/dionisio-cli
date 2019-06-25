@@ -11,6 +11,8 @@ whitelist: &whitelist
     - node_modules/*
     - src/*
     - lib/*
+    - bin/*
+    - _templates/*
     - test/*
     - CODE_OF_CONDUCT.md
     - LICENSE.md
