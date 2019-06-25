@@ -10,6 +10,7 @@ whitelist: &whitelist
     - dist/*
     - node_modules/*
     - src/*
+    - lib/*
     - test/*
     - CODE_OF_CONDUCT.md
     - LICENSE.md
