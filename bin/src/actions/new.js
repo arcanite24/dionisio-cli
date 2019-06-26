@@ -38,16 +38,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var child_process_1 = require("child_process");
 var fs_1 = __importDefault(require("fs"));
 var ora_1 = __importDefault(require("ora"));
-var util_1 = require("util");
 var config_1 = require("../config");
 var logger_1 = __importDefault(require("../logger"));
-var execPromise = util_1.promisify(child_process_1.exec);
+var runner_1 = require("../../lib/runners/runner");
 // TODO: Replace library or write types
 var clone = require("git-clone");
-var Confirm = require("enquirer").Confirm;
+var _a = require("enquirer"), Confirm = _a.Confirm, Select = _a.Select;
 function newProject(name) {
     var _this = this;
     if (!name) {
@@ -66,7 +64,7 @@ function newProject(name) {
         spinner_1.color = 'cyan';
         spinner_1.start();
         clone(config_1.TEMPLATE_GIT, projectPath, null, function (err) { return __awaiter(_this, void 0, void 0, function () {
-            var installModules, installSpinner;
+            var installModules, packageManager, installSpinner, runner;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -77,19 +75,24 @@ function newProject(name) {
                     case 1:
                         logger_1.default.success('Project succesfully cloned');
                         return [4 /*yield*/, new Confirm({
-                                message: 'Do you want to install npm modules?',
+                                message: 'Do you want to install node_modules?',
                                 name: 'install',
                             }).run()];
                     case 2:
                         installModules = _a.sent();
                         if (!installModules) return [3 /*break*/, 5];
-                        installSpinner = ora_1.default("Running npm install");
+                        return [4 /*yield*/, new Select({
+                                name: 'manager',
+                                message: 'Which package manager do you want to use?',
+                                choices: ['npm', 'yarn'],
+                            }).run()];
+                    case 3:
+                        packageManager = _a.sent();
+                        installSpinner = ora_1.default("Installing node_modules with: " + packageManager);
                         installSpinner.color = "cyan";
                         installSpinner.start();
-                        return [4 /*yield*/, execPromise("cd " + projectPath)];
-                    case 3:
-                        _a.sent();
-                        return [4 /*yield*/, execPromise('npm install')];
+                        runner = new runner_1.Runner(packageManager);
+                        return [4 /*yield*/, runner.run('install', true, projectPath)];
                     case 4:
                         _a.sent();
                         installSpinner.stop();

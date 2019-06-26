@@ -1,15 +1,12 @@
-import { exec } from 'child_process';
 import fs from 'fs';
 import ora from 'ora';
-import { promisify } from 'util';
 import { TEMPLATE_GIT } from '../config';
 import logger from "../logger";
-
-const execPromise = promisify(exec);
+import { Runner } from '../../lib/runners/runner';
 
 // TODO: Replace library or write types
 const clone = require("git-clone");
-const { Confirm } = require("enquirer");
+const { Confirm, Select } = require("enquirer");
 
 export function newProject(name: string) {
 
@@ -18,7 +15,6 @@ export function newProject(name: string) {
 
   logger.debug(`Trying to clone project to: ${projectPath}`);
 
-  // Check if directory already exists
   // TODO: Find a better way to join the paths
   // TODO: Format and sanitize the project name
   if (fs.existsSync(projectPath)) { return logger.error('Directory already exists'); }
@@ -41,22 +37,28 @@ export function newProject(name: string) {
 
         // Prompt for installing node_modules
         const installModules = await new Confirm({
-          message: 'Do you want to install npm modules?',
+          message: 'Do you want to install node_modules?',
           name: 'install',
         }).run();
 
-        // TODO: Fix execPromise, sometimes doesn't work
         if (installModules) {
 
-          const installSpinner = ora("Running npm install");
+          const packageManager = await new Select({
+            name: 'manager',
+            message: 'Which package manager do you want to use?',
+            choices: ['npm', 'yarn'],
+          }).run();
+
+          const installSpinner = ora(`Installing node_modules with: ${packageManager}`);
           installSpinner.color = "cyan";
           installSpinner.start();
 
-          await execPromise(`cd ${projectPath}`);
-          await execPromise('npm install');
+          const runner = new Runner(packageManager);
+          await runner.run('install', false, projectPath);
 
           installSpinner.stop();
           logger.success('node_modules installed');
+          logger.info(`Remember to cd into ${name} && npm start`);
 
         }
 
