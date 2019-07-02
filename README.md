@@ -1,4 +1,5 @@
 # Dionisio CLI
+[![CircleCI](https://circleci.com/gh/arcanite24/dionisio-cli/tree/master.svg?style=svg)](https://circleci.com/gh/arcanite24/dionisio-cli/tree/master)
 ### Command line interface for Dionisio
 ----
 ## Features
