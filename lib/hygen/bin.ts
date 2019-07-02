@@ -1,7 +1,8 @@
 import { runner } from './index';
 const Logger = require('./logger');
 const path = require('path');
-const defaultTemplates = path.join(__dirname, '../src/templates');
+const defaultTemplates = path.join(__dirname, '../../src/templates');
+console.log(defaultTemplates);
 
 const invoke = (params: string[]) => runner(params, {
   templates: defaultTemplates,

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("./index");
 var Logger = require('./logger');
 var path = require('path');
-var defaultTemplates = path.join(__dirname, '../src/templates');
+var defaultTemplates = path.join(__dirname, '../../src/templates');
 console.log(defaultTemplates);
 var invoke = function (params) { return index_1.runner(params, {
     templates: defaultTemplates,

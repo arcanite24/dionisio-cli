@@ -6,7 +6,7 @@
         "build": "tsc && cp _templates bin/src/templates -r",
         "test": "echo \"nyi\"",
         "lint": "tslint {src,test}/**/*.ts",
-        "prepublish": "npm test"
+        "prepare": "npm test"
     },
     "author": "Brandon G. Neri <contacto@epsidev.com.mx>",
     "license": "MIT",
