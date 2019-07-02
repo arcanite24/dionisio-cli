@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Dionisio CLI",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp _templates bin/src/templates -r",
     "test": "echo \"nyi\"",
     "lint": "tslint {src,test}/**/*.ts",
     "prepublish": "npm test"

@@ -12,7 +12,7 @@ const invoke = (params: string[]) => runner(params, {
     const opts = body && body.length > 0 ? { input: body } : {};
     return require('execa').shell(action, opts);
   },
-  createPrompter: () => require('enquirer')
+  createPrompter: () => require('enquirer'),
 });
 
 export default invoke;

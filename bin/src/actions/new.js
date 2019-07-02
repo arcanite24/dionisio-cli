@@ -53,7 +53,6 @@ function newProject(name) {
     }
     var projectPath = process.cwd() + "/" + name;
     logger_1.default.debug("Trying to clone project to: " + projectPath);
-    // Check if directory already exists
     // TODO: Find a better way to join the paths
     // TODO: Format and sanitize the project name
     if (fs_1.default.existsSync(projectPath)) {
@@ -92,11 +91,12 @@ function newProject(name) {
                         installSpinner.color = "cyan";
                         installSpinner.start();
                         runner = new runner_1.Runner(packageManager);
-                        return [4 /*yield*/, runner.run('install', true, projectPath)];
+                        return [4 /*yield*/, runner.run('install', false, projectPath)];
                     case 4:
                         _a.sent();
                         installSpinner.stop();
                         logger_1.default.success('node_modules installed');
+                        logger_1.default.info("Remember to cd into " + name + " && npm start");
                         _a.label = 5;
                     case 5: return [2 /*return*/];
                 }
